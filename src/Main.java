@@ -10,7 +10,8 @@ public class Main {
 
     /**
      * metoda pentru adaugarea minutelor intr-o variabila de tip Date
-     * @param minutes - minutele pe care vrem sa le adaugam
+     *
+     * @param minutes    - minutele pe care vrem sa le adaugam
      * @param beforeTime -  data pe care vrem sa o modificam
      * @return - returneaza noul Date cu minutele adaugate
      */
@@ -22,8 +23,9 @@ public class Main {
 
     /**
      * metoda care cauta toate intervalele posibile in care doua persoane se pot intalni in functie de calendarele lor si durata dorita
-     * @param calendar1 - calendarul primei persoane
-     * @param calendar2 - calendarul celei de-a doua persoane
+     *
+     * @param calendar1   - calendarul primei persoane
+     * @param calendar2   - calendarul celei de-a doua persoane
      * @param meetingTime - minutele/durata intalnirii
      * @return - returneaza o lista a posibilelor intervale disponibile pentru intalnire
      */
@@ -38,7 +40,7 @@ public class Main {
         }
 
         LinkedHashMap<Date, Integer> timeMinMap = new LinkedHashMap<Date, Integer>();  // map - cheie = ora, cu frecventa data de 5 min,
-                                                                           // valoare = ora e sau nu disponibila pentru intalnire 1=ocupat, 0= liber
+        // valoare = ora e sau nu disponibila pentru intalnire 1=ocupat, 0= liber
         int addMinuteTime = 5;  // intervalul dupa care se cauta disponibilitatea
         Date temp1;
         try {
@@ -47,7 +49,7 @@ public class Main {
             throw new RuntimeException(e);
         }
 
-        for (int i = 0; i < (60/addMinuteTime)*24; i++) { // popularea map-ului cu valori pana la 24 de ore, de la "00:00" la "23:55"
+        for (int i = 0; i < (60 / addMinuteTime) * 24; i++) { // popularea map-ului cu valori pana la 24 de ore, de la "00:00" la "23:55"
             timeMinMap.put(temp1, 0);
             temp1 = addMinutesToDate(addMinuteTime, temp1);  // apelarea functiei de incrementare
         }
@@ -154,12 +156,15 @@ public class Main {
         System.out.println(calendar1);
         System.out.println(calendar2);
 
-        String meetingTimeMin = "00:30";  // durata intalnirii dorite in formatul "HH:mm"
+        String meetingTimeMin = "01:30";  // durata intalnirii dorite in formatul "HH:mm"
 
         ArrayList<Time> meets = meetings(calendar1, calendar2, meetingTimeMin);  // apelarea functiei pentru gasirea intervalelor disponibile
-
-        for (Time t : meets) {
-            System.out.println(t);  // afisare rezultat
+        if (meets.isEmpty()) {
+            System.out.println("Nu exista timp comun disponibil");
+        } else {
+            for (Time t : meets) {
+                System.out.println(t);  // afisare rezultat
+            }
         }
     }
 }
